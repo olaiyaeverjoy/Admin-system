@@ -27,19 +27,19 @@ const isActive = (item) => {
   return route.path === item.route || route.path.startsWith(item.route + "/");
 };
 
-const setView = (nav: string, e: Event) => {
-  activeNav.value = nav;
-  showDashView(nav);
-};
+// const setView = (nav: string, e: Event) => {
+//   activeNav.value = nav;
+//   showDashView(nav);
+// };
 
-const showDashView = (nav: string) => {
-  // replace with your real view logic
-  console.log("switch view:", nav);
-};
+// const showDashView = (nav: string) => {
+//   // replace with your real view logic
+//   console.log("switch view:", nav);
+// };
 
-const signOut = () => {
-  router.push("/");
-};
+// const signOut = () => {
+//   router.push("/");
+// };
 
 /**
  * EXACT SVG STRINGS from your original HTML
