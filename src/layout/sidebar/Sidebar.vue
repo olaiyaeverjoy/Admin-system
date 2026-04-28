@@ -1,7 +1,6 @@
 <template>
-  <div class="dash-sidebar mt-6">
-
-    <ul class="dash-menu mt-6">
+  <div class="dash-sidebar mt-0">
+    <ul class="dash-menu mt-0">
       <li
         v-for="item in menuItems"
         class="mt-4"
@@ -12,36 +11,35 @@
         <i :class="item.icon"></i>
         {{ item.label }}
       </li>
-
     </ul>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { ref } from "vue";
+import { useRoute, useRouter } from "vue-router";
 
-const route = useRoute()
-const router = useRouter()
+const route = useRoute();
+const router = useRouter();
 
-const activeNav = ref('home')
+const activeNav = ref("home");
 const isActive = (item) => {
-  return route.path === item.route || route.path.startsWith(item.route + '/')
-}
+  return route.path === item.route || route.path.startsWith(item.route + "/");
+};
 
 const setView = (nav: string, e: Event) => {
-  activeNav.value = nav
-  showDashView(nav)
-}
+  activeNav.value = nav;
+  showDashView(nav);
+};
 
 const showDashView = (nav: string) => {
   // replace with your real view logic
-  console.log('switch view:', nav)
-}
+  console.log("switch view:", nav);
+};
 
 const signOut = () => {
-  router.push('/')
-}
+  router.push("/");
+};
 
 /**
  * EXACT SVG STRINGS from your original HTML
@@ -49,40 +47,48 @@ const signOut = () => {
  */
 const menuItems = [
   {
-    nav: 'dashboard',
-    label: 'Dashboard',
-    icon: 'mdi mdi-view-dashboard-outline',
-    route: '/'
+    nav: "dashboard",
+    label: "Dashboard",
+    icon: "mdi mdi-view-dashboard-outline",
+    route: "/",
   },
   {
-    nav: 'students',
-    label: 'students',
-    icon: 'mdi mdi-domain',
-    route: '/student'
-    
-  },
- 
-  {
-    nav: 'Teachers',
-    label: 'Teachers',
-    icon: 'mdi mdi-domain',
-    route: '/teachers'
-    
+    nav: "students",
+    label: "students",
+    icon: "mdi mdi-domain",
+    route: "/student",
   },
 
   {
-    nav: 'Subjects',
-    label: 'Subjects',
-    icon: 'mdi mdi-domain',
-    route: '/subjects'
-    
+    nav: "Teachers",
+    label: "Teachers",
+    icon: "mdi mdi-domain",
+    route: "/teachers",
   },
- 
-]
 
+  {
+    nav: "Subjects",
+    label: "Subjects",
+    icon: "mdi mdi-domain",
+    route: "/subjects",
+  },
+
+  {
+    nav: "Enrollments",
+    label: "Enrollments",
+    icon: "mdi mdi-domain",
+    route: "/enroll",
+  },
+];
 </script>
 
 <style scoped>
+.dash-menu {
+  margin-top: 40px; /* pushes menu items down */
+  display: flex;
+  flex-direction: column;
+  gap: 18px; /* consistent spacing between items */
+}
 .dash-menu li i {
   font-size: 18px;
   width: 18px;
@@ -92,9 +98,11 @@ const menuItems = [
   justify-content: center;
 }
 .dash-sidebar {
-  width: 100%; /* instead of 260px */
-  
-  padding: 18px;
+  /* instead of 260px */
+  width: 100%;
+  min-height: 100vh; /* fill full viewport height */
+  box-sizing: border-box;
+  padding: 32px 18px;
   background: #0d1b3e;
 }
 
@@ -109,7 +117,6 @@ const menuItems = [
 }
 
 /* MENU LIST */
-
 
 /* MENU ITEM */
 .dash-menu li {
@@ -157,16 +164,19 @@ const menuItems = [
 }
 
 /* CREDIT CARD MATCHING IMAGE STYLE */
-.dash-sidebar > div[style*='var(--grad)'] {
+.dash-sidebar > div[style*="var(--grad)"] {
   border-radius: 16px;
   margin-top: 24px;
 }
 
 .icon-wrap {
-  width: 32px; height: 32px;
+  width: 32px;
+  height: 32px;
   border-radius: 8px;
-  background: rgba(255,255,255,0.06);
-  display: flex; align-items: center; justify-content: center;
+  background: rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .dash-menu li.active .icon-wrap {
   background: rgba(59, 130, 246, 0.25);
