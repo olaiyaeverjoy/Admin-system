@@ -4,6 +4,7 @@ import StudentPage from '../views/StudentPage.vue'
 import Teachers from '../views/Teachers.vue'
 import Subjects from '../views/Subjects.vue'
 import Enrollment from '../views/Enrollment.vue'
+import SignUp from '../views/Auth/SignUp.vue'
 import Login from '../views/Auth/Login.vue'
 
 const router = createRouter({
@@ -11,6 +12,11 @@ const router = createRouter({
     routes: [
         {
             path:  "/",
+            name: "signup",
+            component: SignUp
+        },
+        {
+            path:  "/login",
             name: "login",
             component: Login
         },

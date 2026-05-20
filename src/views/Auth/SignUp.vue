@@ -25,9 +25,9 @@ const submit = async () => {
       password: password.value,
     };
     console.log(payload)
-    const { data, error } = await auth.signIn(payload);
+    const { data, error } = await auth.signUp(payload);
     console.log(data);
-    router.push("/dashboard");
+    router.push("/login");
     
   } catch (error) {
     console.error("❌ Login error:", error);
@@ -80,10 +80,10 @@ const submit = async () => {
       <!-- RIGHT SIDE -->
       <div class="p-8 sm:p-12 flex flex-col justify-center">
         <div class="mb-8">
-          <h2 class="text-3xl font-bold text-stone-800">Welcome Back</h2>
+          <h2 class="text-3xl font-bold text-stone-800">Welcome</h2>
 
           <p class="text-stone-500 mt-2">
-            Login In to your admin dashboard.
+            Sign up to your admin dashboard.
           </p>
         </div>
 
@@ -131,7 +131,7 @@ const submit = async () => {
             :disabled="loading"
             class="w-full bg-stone-800 hover:bg-stone-900 text-white py-3 rounded-xl transition duration-300 font-medium disabled:opacity-50"
           >
-            {{ loading ? "logging In..." : "Login" }}
+            {{ loading ? "Signing Up..." : "Sign Up" }}
           </button>
         </form>
 

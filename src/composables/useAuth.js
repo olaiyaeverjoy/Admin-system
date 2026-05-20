@@ -1,50 +1,71 @@
-import { ref } from 'vue'
-import {supabase} from '../services/Supabase.js'
+import { ref } from "vue";
+import { supabase } from "../services/Supabase.js";
 
 export function useAuth() {
-  const user = ref(null)
-  const loading = ref(false)
-  const error = ref(null)
+  const user = ref(null);
+  const loading = ref(false);
+  const error = ref(null);
 
   // Sign Up
-  async function signUp(email, password) {
-    loading.value = true
-    error.value = null
-    const { data, error: err } = await supabase.auth.signUp({ email, password })
-    if (err) error.value = err.message
-    else user.value = data.user
-    loading.value = false
+  async function signUp(payload) {
+    loading.value = true;
+    try {
+      const { data, error: err } = await supabase.auth.signUp(payload);
+      if (error) error.value = error;
+      console.log("login data:", data);
+
+      loading.value = false;
+      return data;
+    } catch (error) {
+      throw error;
+    } finally {
+    }
   }
 
   // Login
-//   async function signIn(email, password) {
-//     loading.value = true
-//     error.value = null
-//     const { data, error: err } = await supabase.auth.signInWithPassword({ email, password })
-//     if (err) error.value = err.message
-//     else user.value = data.user
-//     loading.value = false
-//   }
+  async function signIn(payload) {
+    loading.value = true;
+    try {
+      const { data, error: err } =
+        await supabase.auth.signInWithPassword(payload);
+      if (error) error.value = error;
+
+      loading.value = false;
+      return data;
+    } catch (error) {
+      throw error;
+    } finally {
+    }
+  }
 
   // Logout
-//   async function signOut() {
-//     await supabase.auth.signOut()
-//     user.value = null
-//   }
+  async function signOut() {
+    await supabase.auth.signOut();
+    user.value = null;
+  }
 
   // Get current session on load
-//   async function getSession() {
-//     const { data } = await supabase.auth.getSession()
-//     user.value = data?.session?.user ?? null
-//   }
+  async function getSession() {
+    const { data } = await supabase.auth.getSession();
+    user.value = data?.session?.user ?? null;
+  }
 
-//   // Listen for auth state changes
-//   function onAuthChange(callback) {
-//     supabase.auth.onAuthStateChange((_event, session) => {
-//       user.value = session?.user ?? null
-//       callback?.(session?.user)
-//     })
-//   }
+  // Listen for auth state changes
+  function onAuthChange(callback) {
+    supabase.auth.onAuthStateChange((_event, session) => {
+      user.value = session?.user ?? null;
+      callback?.(session?.user);
+    });
+  }
 
-  return { user, loading, error, signUp, signIn, signOut, getSession, onAuthChange }
+  return {
+    user,
+    loading,
+    error,
+    signUp,
+    signIn,
+    signOut,
+    getSession,
+    onAuthChange,
+  };
 }
